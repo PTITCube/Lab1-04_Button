@@ -15,7 +15,7 @@ void loop() {
     int currentState = digitalRead(BUTTON_PIN);
 
     if (currentState != lastState) {
-        Serial.println(currentState == LOW ? "[BUTTON] Pressed" : "[BUTTON] Released");
+        Serial.println(currentState == LOW ? "BUTTON: Pressed" : "BUTTON: Released");
         lastState = currentState;
         delay(50); // Debounce
     }
