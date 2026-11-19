@@ -1,11 +1,5 @@
 /**
  * VÍ DỤ 1-04: ĐỌC TÍN HIỆU TỪ NÚT NHẤN (BUTTON INPUT)
- * 
- * Mô tả:
- * - Sử dụng chế độ INPUT_PULLUP (điện trở kéo lên nội bộ của ESP32).
- * - Nút nhấn được nối giữa chân GPIO 4 và chân GND.
- * - Khi nhấn nút: chân GPIO đọc mức LOW (0).
- * - Khi thả nút: chân GPIO đọc mức HIGH (1).
  */
 #include <Arduino.h>
 
@@ -14,23 +8,15 @@ int lastState = HIGH;
 
 void setup() {
     Serial.begin(115200);
-    while (!Serial) { delay(10); }
-
-    Serial.println("\n[EXAMPLE] Bắt đầu bài test Nút nhấn (Button)...");
     pinMode(BUTTON_PIN, INPUT_PULLUP);
-    }
+}
 
 void loop() {
     int currentState = digitalRead(BUTTON_PIN);
 
-    // Phát hiện sự thay đổi trạng thái của nút nhấn
     if (currentState != lastState) {
-        if (currentState == LOW) {
-            Serial.println("[BUTTON] >>> Nút nhấn ĐÃ ĐƯỢC NHẤN (PRESSED)!");
-        } else {
-            Serial.println("[BUTTON] --- Nút nhấn ĐÃ ĐƯỢC THẢ (RELEASED).");
-        }
+        Serial.println(currentState == LOW ? "[BUTTON] Pressed" : "[BUTTON] Released");
         lastState = currentState;
-        delay(50); // Chống dội phím (Debounce)
+        delay(50); // Debounce
     }
 }
